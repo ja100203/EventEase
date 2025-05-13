@@ -7,4 +7,4 @@ export const loginUser =
 
 export const signupUser = 
 (userData) => 
-  axios.post('/users/register', userData);
+  axios.post('/users/register', userData,credentials, { withCredentials: true });
