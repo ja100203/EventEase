@@ -1,0 +1,94 @@
+.signup-background {
+  display: flex;
+  min-height: 100vh;
+  background-color: #202328;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* Left side - image */
+.signup-image {
+  flex: 0.7;
+   background-image: url(../images/signup.jpg); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+.signup-image img {
+  width: 100%;
+  /* max-width: 450px; */
+  height: auto;
+  object-fit: contain;
+}
+
+/* Right side - form */
+.signup-card {
+  flex: 1;
+  background-color: #1c1e22;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+
+.signup-card h2 {
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.signup-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.signup-card input,
+.signup-card select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background-color: #1c1e22;
+  color: #928f8f;
+  outline: none;
+}
+.signup-card select {
+  padding-right: 20px;
+}
+
+.signup-card input:focus,
+.signup-card select:focus {
+  border-color: #f43f5e;
+  box-shadow: 0 0 5px #f43f5e;
+  background-color: #1c1e22;
+}
+
+.signup-card button {
+  border: 1px solid #f43f5e;
+  color: #f43f5e;
+  background: transparent;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-card button:hover {
+  background-color: #f43f5e;
+  color: #fff;
+}

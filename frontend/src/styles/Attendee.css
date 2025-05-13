@@ -1,0 +1,649 @@
+.attendee-dashboard {
+    background-image: url('../images/nicolas-houdayer-5blKIk0cV6Q-unsplash.jpg');
+    min-height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    padding: 30px 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+.attendee-dashboard  .dashboard-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    /* max-width: 1200px; */
+    /* width: 100%; */
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .attendee-dashboard   .dashboard-wrapper .left-section {
+    flex: 1;
+    text-align: center;
+    color: white;
+  }
+  
+  /* .attendee-dashboard   .dashboard-wrapper .event-vector {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+  } */
+  
+  .attendee-dashboard   .dashboard-wrapper .dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .attendee-dashboard   .dashboard-wrapper .dashboard-subtitle {
+    font-size: 1.2rem;
+    color: #CCCCCC;
+  }
+  
+  .attendee-dashboard   .dashboard-wrapper .highlight {
+    color: #A71930;
+    font-weight: 700;
+  }
+  
+  .attendee-dashboard   .dashboard-wrapper .right-section {
+    flex: 1;
+    top: 10px;
+  }
+  
+  .dashboard-card {
+    background-color: #2D2D2D;
+    padding: 40px;
+    border-radius: 20px;
+    min-width: 400px;
+    margin-top: 50px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+  .dashboard-card h2 {
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .dashboard-button {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .dashboard-button:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Button colors */
+  .dashboard-button.red {
+    background-color: #A71930;
+    border-color: #D4A017;
+  }
+  
+  .dashboard-button.red:hover {
+    background-color: #D4A017;
+    color: #1C2526;
+  }
+  
+  .dashboard-button.green {
+    background-color: #1D8348;
+    border-color: #D4A017;
+  }
+  
+  .dashboard-button.green:hover {
+    background-color: #D4A017;
+    color: #1C2526;
+  }
+  
+  .dashboard-button.gold {
+    background-color: #D4A017;
+    color: #1C2526;
+    border-color: #FFFFFF;
+  }
+  
+  .dashboard-button.gold:hover {
+    background-color: #FFFFFF;
+    color: #1C2526;
+  }
+  
+  .dashboard-button.blue {
+    background-color: #148F77;
+    border-color: #D4A017;
+  }
+  
+  .dashboard-button.blue:hover {
+    background-color: #D4A017;
+    color: #1C2526;
+  }
+  
+  /* Animation */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  
+/* Extra style tweaks for filters */
+
+.category-filter select,
+.date-filter input.date-input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.category-filter select option {
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+
+/* Events.css */
+.events-container {
+  background-color: #0d0d0d;
+  color: #fff;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.events-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.search-filter-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  background-color: #1f1f1f;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.search-box input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  margin-left: 0.5rem;
+  width: 100%;
+}
+
+.filter-btn {
+  background-color: #1f1f1f;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-btn:hover {
+  background-color: #2c2c2c;
+}
+
+.event-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Ensures card layout flows top to bottom and button stays at bottom */
+.event-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.2rem;
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  /* height: 100%; */
+  flex: 1 1 250px;
+  max-width: 300px;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+/* ✅ This wraps content to allow button to stay at bottom */
+.event-card-content {
+  flex-grow: 1;
+}
+
+/* Half-width tag */
+.event-tag {
+  background-color: #f43f5e;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Button sticks to bottom */
+.event-card button {
+  margin: auto;
+  /* margin-top: auto; */
+  background-color: #f43f5e;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.event-card button:hover {
+  background-color: #fff;
+  color: #f43f5e;
+  border: 1px solid #f43f5e;
+}
+
+
+.event-card h3{
+font-size: 1.2rem;
+}
+.event-card p{
+  font-size: 0.9rem;
+  }
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-date {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+  color: #ccc;
+}
+
+
+.loading, .no-events {
+  text-align: center;
+  margin-top: 3rem;
+  color: #bbb;
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+
+
+
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(6px); /* ✅ blurred background */
+  background-color: rgba(0, 0, 0, 0.2); /* semi-dark for contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.booking-modal {
+  background: #1c1e22;
+  border-radius: 12px;
+  width: 50%; /* ✅ Half of the screen */
+  max-width: 600px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.booking-modal .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background-color: #f43f5e;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.booking-modal .close-btn:hover {
+  background-color: #fff;
+  color: #f43f5e;
+}
+
+.booking-modal h3 {
+  margin-bottom: 1rem;
+  color: #f43f5e;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.booking-modal .event-details h4{
+  font-size: 1.1rem;
+}
+.booking-modal .event-details {
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.booking-modal input[type="number"] {
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.booking-modal button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f43f5e; /* ✅ Primary button color */
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.booking-modal button:hover {
+  background-color: #fff;
+  color: #f43f5e;
+}
+
+.booking-modal .pay-btn {
+  background-color: #28a745; /* ✅ Green payment button */
+}
+
+.booking-modal .pay-btn:hover {
+  background-color: #218838;
+}
+
+.booking-modal .confirmed {
+  background: #f4f9ff;
+  padding: 10px;
+  border-radius: 2px;
+  margin-top: 2px;
+  border-left: 2px solid #28a745;
+}
+
+
+/* Bookings Table Styles */
+.atendee-booking{
+  margin-top: 2.5rem ;
+  padding: 1.5rem ;
+}
+/* Title Styling */
+.my-bookings-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ff4060;
+  margin-top: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.my-bookings-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #ff4060;
+  margin: 8px auto 0;
+  border-radius: 3px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 1rem;
+  background-color: #1c1c1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.styled-table thead {
+  background-color: #ff4060;
+  color: #fff;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  color: #fff;
+}
+
+.styled-table tbody tr {
+  transition: background 0.2s ease-in-out;
+}
+
+.styled-table tbody tr:hover {
+  background-color:#f75c76;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.status-paid {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.status-pending {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin: 0 5px;
+}
+
+.action-btn.cancel {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.action-btn.pay {
+  background-color: #28a745;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .styled-table th,
+  .styled-table td {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .action-btn {
+    margin: 4px 2px;
+    display: block;
+    width: 100%;
+  }
+}
+
+
+
+.atendee-payment{
+  margin-top: 2.5rem ;
+  padding: 1.5rem ;
+}
+/* Title Styling */
+.notification-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ff4060;
+  position: relative;
+}
+
+.notification-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #ff4060;
+  margin: 8px auto 0;
+  border-radius: 3px;
+}
+
+/* Notification Card Styling */
+.notification-card {
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.notification-card.unread {
+  background-color: #fffbe6;
+  border-left: 4px solid #f0ad4e;
+}
+
+.notification-card.read {
+  background-color: #f8f9fa;
+  border-left: 4px solid #ced4da;
+}
+
+.notification-message {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.notification-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.mark-read-btn {
+  background-color: #28a745;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mark-read-btn:hover {
+  background-color: #218838;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .notification-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

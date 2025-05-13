@@ -1,0 +1,672 @@
+/* Full background */
+.dashboard-page {
+    background-image: url('../images/nicolas-houdayer-5blKIk0cV6Q-unsplash.jpg'); /* reuse same bg */
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Center content */
+  .dashboard-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+  }
+  
+  /* Left text part */
+  .dashboard-text {
+    color: white;
+    max-width: 500px;
+  }
+  
+  .dashboard-text h1 {
+    font-size: 48px;
+    font-weight: bold;
+  }
+  
+  .dashboard-text p {
+    font-size: 22px;
+    margin-top: 10px;
+  }
+  
+  .highlight {
+    color: #c62828;
+    font-weight: bold;
+  }
+  
+  /* Right card part */
+  .dashboard-card {
+    background-color: rgba(33, 33, 33, 0.9);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 360px;
+    box-shadow: 0px 8px 32px 0px rgba(31, 38, 135, 0.37);
+  }
+  
+  .dashboard-card h2 {
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Common Button Styles */
+  .dashboard-button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .dashboard-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Specific button colors */
+  .dashboard-button.red {
+    background-color: #b71c1c;
+  }
+  
+  .dashboard-button.green {
+    background-color: #2e7d32;
+  }
+  
+  .dashboard-button.yellow {
+    background-color: #f9a825;
+  }
+  
+  .dashboard-button.teal {
+    background-color: #00897b;
+  }
+  
+  .dashboard-button.blue {
+    background-color: #1976d2;
+  }
+  
+
+  
+  .create-event-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #0f0f0f;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Left side (form section) */
+  .create-event-left {
+    width: 70%;
+    padding: 3.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Form card styling */
+  .create-event-card {
+    background-color: #1e1e1e;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 70, 104, 0.2);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .create-event-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #ff4668;
+    text-align: center;
+  }
+  
+  .create-event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .create-event-form input,
+  .create-event-form textarea {
+    padding: 0.9rem 1rem;
+    border: 1px solid #333;
+    background-color: #111;
+    color: #fff;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .create-event-form input::placeholder,
+  .create-event-form textarea::placeholder {
+    color: #aaa;
+  }
+  
+  .input-row {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .input-row input {
+    flex: 1;
+  }
+  
+  .submit-btn {
+    padding: 0.9rem;
+    background-color: #ff4668;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #e63c5d;
+  }
+  
+  /* Right side (Lottie animation section) */
+  .create-event-right {
+    width: 40%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 2rem;
+  }
+  
+  .event-lottie {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    z-index: 1;
+  }
+
+
+  /* src/styles/Event.css */
+
+.manage-events-container {
+  background: #0d0d0d;
+  padding: 4rem;
+  /* max-width: 1500px; */
+  min-height: 100vh;
+}
+.manage-events-container h2{
+  color: white;
+  display: flex;
+  padding: auto;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+.events-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+}
+
+.event-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  color: white;
+}
+
+.event-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-btn, .delete-btn {
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form label {
+  margin: 10px 0 5px;
+  font-size: .9rem;
+  color: white;
+}
+
+.edit-form input {
+  padding: 10px;
+  font-size: .9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.edit-form input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-btn, .cancel-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #e53935;
+}
+
+
+/* Container and Headings */
+.organizer-bookings-container {
+  padding:3rem;
+  margin-top: 2rem;
+  text-align: center;
+  background-color: #1e1e1e;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.organizer-heading {
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 40px;
+  display: inline-block;
+}
+
+/* Event Blocks */
+.event-block {
+  margin-bottom: 40px;
+}
+
+.event-title {
+  font-size: 1.5rem;
+  color: #ff4c61;
+  margin-bottom: 15px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.no-bookings {
+  color: #ccc;
+  margin-left: 10px;
+  font-style: italic;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-y: auto;
+  max-height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+  margin-top: 10px;
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding:15px 2rem ;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.bookings-table thead {
+  background-color: #ff4c61;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Loading and Empty States */
+.organizer-loading,
+.organizer-empty {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-top: 40px;
+}
+
+
+
+/* Main container */
+.statContainer {
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+  background-color: #0d0d0d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Header styling */
+.statHeader {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #f43f5e;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+/* Stat cards container (grid layout) */
+.statCardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Stat card design */
+.statCard {
+  padding: 2rem;
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.statCard:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  background-color: #eff2ff;
+  
+}
+
+/* Stat card icon styles */
+.statIcon {
+  font-size: 2.5rem;
+  color: #f43f5e;
+  margin-bottom: 1rem;
+  background-color: #e7f1ff;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title of stat card */
+.statTitle {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+.statCard:hover .statTitle {
+  color: #0d0d0d;
+}
+/* Value of stat card */
+.statValue {
+  font-size: 1.4rem;
+  color: #f43f5e;
+  font-weight: 600;
+}
+
+/* Loading state */
+.statLoading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #f43f5e;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Applying animation to the stat cards */
+.statCard {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Material Icon Styles */
+.material-icons {
+  font-size: 3rem;
+  color: #4a90e2;
+}
+
+/* Additional Icons */
+.statCard.event .material-icons {
+  color: #ff7043;
+}
+
+.statCard.ticket .material-icons {
+  color: #28a745;
+}
+
+.statCard.revenue .material-icons {
+  color: #f39c12;
+}
+
+.statCard.star .material-icons {
+  color: #8e44ad;
+}
+
+
+ .party-body {
+  background: #0d0d0d;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+.private-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+
+.private-glass-card {
+  background: #1f1f1f;
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  padding: 1.5rem;
+  max-width: 700px;
+  margin-top: 4rem;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.private-upload-form,
+.private-whatsapp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.private-textarea {
+  height: 100%;
+  resize: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  border: none;
+  background: #fff;
+  color: #333;
+}
+
+
+.private-form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.private-form-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.private-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.private-input-field {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+}
+
+.private-input-field:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #f43f5e;
+}
+
+input[type="file"].private-input-field {
+  padding: 0.5rem;
+}
+
+.private-btn-primary {
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: #f43f5e;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.private-btn-primary:hover {
+  background-color: #f43f5e;
+  border: 2px solid #ffc107;
+}
+
+
+.private-btn-secondary {
+  background-color: #f43f5e;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.private-btn-secondary:hover {
+  background-color: #1DA851;
+}

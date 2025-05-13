@@ -1,0 +1,663 @@
+.admin-dashboard {
+    background-image: url('../images/nicolas-houdayer-5blKIk0cV6Q-unsplash.jpg'); /* reuse same bg */
+    min-height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    padding: 30px 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .admin-dashboard .dashboard-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .admin-dashboard .left-section {
+    flex: 1;
+    text-align: center;
+    color: white;
+    padding-bottom: 7rem ;
+  }
+  
+  .admin-dashboard .dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .admin-dashboard .dashboard-subtitle {
+    font-size: 1.2rem;
+    color: #CCCCCC;
+  }
+  
+  .admin-dashboard .highlight {
+    color: #A71930;
+    font-weight: 700;
+    font-size: 1.5rem ;
+  }
+  
+  .admin-dashboard .right-section {
+    flex: 1;
+    top: 10px;
+  }
+  
+  .dashboard-card {
+    background-color: #2D2D2D;
+    padding: 40px;
+    border-radius: 20px;
+    min-width: 400px;
+    margin-top: 50px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+  .dashboard-card h2 {
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .dashboard-button {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .dashboard-button:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Color variants */
+  .dashboard-button.red {
+    background-color: #A71930;
+    border-color: #D4A017;
+  }
+  
+  .dashboard-button.red:hover {
+    background-color: #D4A017;
+    color: #1C2526;
+  }
+  
+  .dashboard-button.green {
+    background-color: #1D8348;
+    border-color: #D4A017;
+  }
+  
+  .dashboard-button.green:hover {
+    background-color: #D4A017;
+    color: #1C2526;
+  }
+  
+  .dashboard-button.gold {
+    background-color: #D4A017;
+    color: #1C2526;
+    border-color: #FFFFFF;
+  }
+  
+  .dashboard-button.gold:hover {
+    background-color: #FFFFFF;
+    color: #1C2526;
+  }
+  
+  .dashboard-button.blue {
+    background-color: #148F77;
+    border-color: #D4A017;
+  }
+  
+  .dashboard-button.blue:hover {
+    background-color: #D4A017;
+    color: #1C2526;
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+
+  /*events.css*/
+  /* Container styling */
+.events-container {
+    background-color: #0d0d0d;
+    color: #fff;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  .events-header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Search and filter (optional use) */
+  /* .search-filter-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .search-box {
+    background-color: #1f1f1f;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .search-box input {
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    margin-left: 0.5rem;
+    width: 100%;
+  }
+  
+  .filter-btn {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .filter-btn:hover {
+    background-color: #2c2c2c;
+  }
+   */
+   .search-filter-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .search-box,
+  .category-filter,
+  .date-filter {
+    display: flex;
+    align-items: center;
+    background-color: #1f1f1f;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+  }
+  
+  .search-box input,
+  .category-filter select,
+  .date-filter input {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-left: 0.5rem;
+    outline: none;
+  }
+  
+  .icon {
+    color: white;
+  }
+  
+  /* Card container */
+  .event-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  /* Each event card */
+  .event-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.2rem;
+    background-color: #1f1f1f;
+    border-radius: 12px;
+    flex: 1 1 250px;
+    max-width: 300px;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease;
+    position: relative;
+  }
+  
+  /* Content section inside card */
+  .event-card-content {
+    flex-grow: 1;
+  }
+  
+  /* Tag */
+  .event-tag {
+    background-color: #f43f5e;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    display: inline-block;
+    width: fit-content;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+ /* Button group layout */
+.event-card-content .button-group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  /* Make buttons split the width equally */
+  .button-group button {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  /* Edit button style */
+  .edit-btn {
+    background-color: #2563eb; /* blue */
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #3b82f6;
+  }
+  
+  /* Delete button style */
+  .delete-btn {
+    background-color: #ef4444; /* red */
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Text styles */
+  .event-card h3 {
+    font-size: 1.2rem;
+    margin: 0.4rem 0;
+  }
+  
+  .event-card p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin: 0.2rem 0;
+  }
+  
+  .event-date {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.5rem 0;
+    color: #ccc;
+  }
+  
+  /* Hover effect */
+  .event-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Empty or loading states */
+  .loading,
+  .no-events {
+    text-align: center;
+    margin-top: 3rem;
+    color: #bbb;
+    font-size: 1rem;
+  }
+  
+  .icon {
+    font-size: 1rem;
+  }
+  
+
+
+
+  /* Bookings Table Styles */
+.atendee-booking{
+    margin-top: 2.5rem ;
+    padding: 1.5rem ;
+  }
+  /* Title Styling */
+  .my-bookings-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ff4060;
+    margin-top: 1.5rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .my-bookings-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #ff4060;
+    margin: 8px auto 0;
+    border-radius: 3px;
+  }
+  
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+    background-color: #1c1c1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .styled-table thead {
+    background-color: #ff4060;
+    color: #fff;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    color: #fff;
+  }
+  
+  .styled-table tbody tr {
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color:#f75c76;
+  }
+  
+  .status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  
+  .status-paid {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .status-pending {
+    background-color: #ffc107;
+    color: #000;
+  }
+  
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin: 0 5px;
+  }
+  
+  .action-btn.cancel {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .action-btn.pay {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .styled-table th,
+    .styled-table td {
+      font-size: 0.85rem;
+      padding: 10px;
+    }
+  
+    .action-btn {
+      margin: 4px 2px;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.styled-table thead {
+  background-color: #324960;
+  color: #fff;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  transition: background-color 0.3s;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f3f3f3;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.status-paid {
+  background-color: #e6ffed;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #856404;
+}
+
+/* Main container */
+.analytics-container {
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+  background-color: #0d0d0d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Header styling */
+.analytics-header {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #f43f5e;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+/* Cards grid */
+.analytics-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Single stat card */
+.analytics-stat-card {
+  padding: 2rem;
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.analytics-stat-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  background-color: #eff2ff;
+}
+
+/* Stat card title */
+.analytics-stat-card h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.analytics-stat-card:hover h3 {
+  color: #0d0d0d;
+}
+
+/* Stat card value */
+.analytics-stat-card p {
+  font-size: 1.4rem;
+  color: #f43f5e;
+  font-weight: 600;
+}
+
+/* Loading state */
+.analytics-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0d0d0d;
+  color: #f43f5e;
+  font-size: 1.5rem;
+}
+
+.analytics-spinner {
+  border: 5px solid #2c2c2c;
+  border-top: 5px solid #f43f5e;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stat card icon styles */
+.statIcon {
+  color: #f43f5e !important;
+  margin-bottom: 1rem !important;
+  background-color: #e7f1ff !important;
+  padding: 20px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+.statIcon i{
+  font-size: 2.2rem;
+}
+
+/* Title of stat card */
+.statTitle {
+  font-size: 1.6rem !important;
+  color: white !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: bold !important;
+}
+.statCard:hover .statTitle {
+  color: #0d0d0d !important;
+}
+/* Value of stat card */
+.statValue {
+  font-size: 1.3rem !important;
+  color: #f43f5e !important;
+  font-weight: 600 !important;
+}
+
