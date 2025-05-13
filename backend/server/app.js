@@ -17,7 +17,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: "https://eventease-frontend.onrender.com",
   credentials: true
 }));
 app.use(express.json());
@@ -25,7 +25,8 @@ app.use(express.json());
 const server = http.createServer(app); // ✅ Create HTTP server
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    // origin: 'http://localhost:3000',
+      origin: "https://eventease-frontend.onrender.com",
     credentials: true,
     methods: ["GET", "POST"],
   },
