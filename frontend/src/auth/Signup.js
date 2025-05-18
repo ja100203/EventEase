@@ -33,8 +33,10 @@ const Signup = () => {
       else if (data.role === 'attendee') navigate('/attendee/dashboard');
       else navigate('/home');
     } catch (err) {
-      alert(err.response?.data?.message || 'Signup failed');
-    }
+  console.error("Signup error:", err.response || err);
+  alert(err.response?.data?.message || 'Signup failed');
+}
+
   };
 
   return (
