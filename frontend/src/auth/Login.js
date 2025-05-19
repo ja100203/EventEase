@@ -14,32 +14,48 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const { data } = await loginUser(formData);
-      console.log('Login response:', data);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    const { data } = await loginUser(formData);
+    console.log('Login response:', data);
 
-      // Extract the token and user data from the response
-      const { token, user } = data;
+    const { token, user } = data;
 
-      // Store the token and user information in localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+    // Store token and flattened user info in localStorage
+    localStorage.setItem('token', token);
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      })
+    );
 
-      // Use the context to update user state
-      login(data);  // This will also update context if you're using it across the app
+    // Pass flattened user data to login context
+    login({
+      token,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      id: user._id || user.id, // add this if backend sends _id later
+    });
 
-      // Optionally, you can navigate to a protected page like dashboard
-      // navigate('/dashboard');  // Use navigate to redirect user to dashboard after login (if needed)
-      
-    } catch (err) {
-      alert(err.response?.data?.message || 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Optional: Redirect after login based on role
+    // if (user.role === 'admin') navigate('/admin/dashboard');
+    // else if (user.role === 'organizer') navigate('/organizer/dashboard');
+    // else if (user.role === 'attendee') navigate('/attendee/dashboard');
+    // else navigate('/home');
+
+  } catch (err) {
+    alert(err.response?.data?.message || 'Login failed');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="login-background">

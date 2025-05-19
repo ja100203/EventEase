@@ -16,35 +16,40 @@ const Signup = () => {
   });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const { data } = await signupUser(formData);
+  e.preventDefault();
+  try {
+    const res = await signupUser(formData); // API call
+    const data = res.data; // ✅ Extract actual response body
 
-      login({
-        token: data.token,
-        role: data.role,
-        name: data.name,
-        email: data.email,
-        id: data.id,
-      });
+    console.log("Signup success:", data);
 
-      if (data.role === 'admin') navigate('/admin/dashboard');
-      else if (data.role === 'organizer') navigate('/organizer/dashboard');
-      else if (data.role === 'attendee') navigate('/attendee/dashboard');
-      else navigate('/home');
-    } catch (err) {
-  console.error("Signup error:", err.response || err);
-  alert(err.response?.data?.message || 'Signup failed');
-}
+    // Pass proper structure to login()
+    login({
+      token: data.token,
+      role: data.role,
+      name: data.name,
+      email: data.email,
+      id: data.id,
+    });
 
-  };
+    // Redirect based on role
+    if (data.role === 'admin') navigate('/admin/dashboard');
+    else if (data.role === 'organizer') navigate('/organizer/dashboard');
+    else if (data.role === 'attendee') navigate('/attendee/dashboard');
+    else navigate('/home');
+  } catch (err) {
+    console.error("Signup error:", err.response || err);
+    alert(err.response?.data?.message || 'Signup failed');
+  }
+};
+
 
   return (
     <div className="signup-background">
       <div className="signup-container">
         {/* Left Side - Image */}
         <div className="signup-image">
-        <img src={signupVector} alt="Event booking illustration" />
+          <img src={signupVector} alt="Event booking illustration" />
         </div>
 
         {/* Right Side - Form */}

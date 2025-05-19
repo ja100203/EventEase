@@ -7,17 +7,17 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(JSON.parse(localStorage.getItem('auth')) || null);
   const navigate = useNavigate();
 
-  const login = (userData) => {
-    setAuth(userData);
-    localStorage.setItem('auth', JSON.stringify(userData));
+ const login = (userData) => {
+  setAuth(userData);
+  localStorage.setItem('auth', JSON.stringify(userData));
 
-    const { role } = userData.user; // ✅ FIXED this line
+  const { role } = userData; // ✅ CORRECT — directly from userData
 
-    if (role === 'admin') navigate('/admin/dashboard');
-    else if (role === 'organizer') navigate('/organizer/dashboard');
-    else if (role === 'attendee') navigate('/attendee/dashboard');
-    else navigate('/');
-  };
+  if (role === 'admin') navigate('/admin/dashboard');
+  else if (role === 'organizer') navigate('/organizer/dashboard');
+  else if (role === 'attendee') navigate('/attendee/dashboard');
+  else navigate('/');
+};
 
   const logout = () => {
     setAuth(null);
