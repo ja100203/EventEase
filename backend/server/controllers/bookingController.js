@@ -72,9 +72,12 @@ const createBooking = asyncHandler(async (req, res) => {
 
 // Get all bookings (Admin only)
 const getAllBookings = asyncHandler(async (req, res) => {
-  const bookings = await Booking.find().populate("event", "title date location");
+  const bookings = await Booking.find()
+    .populate("event", "title date location")
+    .populate("user", "name email");  // 👈 Important line to fix the issue
   res.status(200).json(bookings);
 });
+
 
 // Get all bookings for the logged-in user
 const getBookings = asyncHandler(async (req, res) => {

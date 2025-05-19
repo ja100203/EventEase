@@ -16,21 +16,38 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://eventease-frontend.onrender.com'
+];
+
 app.use(cors({
-  origin: "https://eventease-frontend.onrender.com",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
+  },
   credentials: true
 }));
-app.use(express.json());
+
 
 const server = http.createServer(app); // ✅ Create HTTP server
 const io = new Server(server, {
   cors: {
-    // origin: 'http://localhost:3000',
-      origin: "https://eventease-frontend.onrender.com",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by socket.io CORS: ' + origin));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST"],
   },
 });
+
 
 // ✅ Make io globally accessible
 global.io = io;

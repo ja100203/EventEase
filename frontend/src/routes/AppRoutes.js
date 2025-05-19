@@ -36,9 +36,6 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-      <Route path="/organizer/dashboard" element={<OrganizerDashboard />} />
-      <Route path="/attendee/dashboard" element={<AttendeeDashboard />} />
 
 
       {/* ✅ Admin Routes */}
