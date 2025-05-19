@@ -5,17 +5,17 @@ import { useAuth } from '../context/AuthContext';
 const PrivateRoute = ({ allowedRoles }) => {
   const { auth } = useAuth();
 
-  const user = auth?.user;
+  if (!auth) {
+    // Not logged in
+    return <Navigate to="/login" replace />;
+  }
 
-  // Not logged in
-  if (!user) return <Navigate to="/login" replace />;
-
-  // Logged in but role not allowed
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
+  if (allowedRoles && !allowedRoles.includes(auth.role)) {
+    // Role not authorized
     return <Navigate to="/" replace />;
   }
 
-  // Allowed
+  // Authorized
   return <Outlet />;
 };
 
