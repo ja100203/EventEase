@@ -187,12 +187,12 @@
   color: #fff;
   padding: 2rem;
   min-height: 100vh;
+  margin-top: 5rem;
+  overflow-y: auto;
 }
 
-.events-header h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+body{
+  overflow: auto;
 }
 
 .search-filter-container {
@@ -328,6 +328,19 @@ font-size: 1.2rem;
 }
 
 
+.option-select {
+  background-color: #ffe6f0;
+  /* color: #f43f5e; */
+  border: 1px solid #f43f5e;
+  padding: 0.5rem;
+  border-radius: 6px;
+  outline: none;
+}
+
+.option-select:focus {
+  border-color: #ff1493;
+  box-shadow: 0 0 0 2px rgba(255, 20, 147, 0.3);
+}
 
 
 .booking-modal-overlay {

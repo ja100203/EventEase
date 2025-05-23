@@ -2,37 +2,56 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import '../../styles/Organiser.css';
+import '../../styles/main.css'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ConfirmDialog from '../../components/ConfirmDialog'; // your custom confirm dialog
 
 const ManageEvents = () => {
   const [events, setEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editEventData, setEditEventData] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await axios.get('/events/my-events');
-        setEvents(res.data);
-      } catch (err) {
-        console.error('Error fetching events:', err);
-        alert('❌ Unauthorized. Please log in again.');
-      }
-    };
-
     fetchEvents();
   }, []);
 
-  const handleDelete = async (id) => {
-    const confirm = window.confirm('Are you sure you want to delete this event?');
-    if (!confirm) return;
-
+  const fetchEvents = async () => {
+    setLoading(true);
     try {
-      await axios.delete(`/events/${id}`);
-      setEvents(prev => prev.filter(event => event._id !== id));
-      alert('✅ Event deleted successfully!');
+      const res = await axios.get('/events/my-events');
+      setEvents(res.data || []);
+    } catch (err) {
+      console.error('Error fetching events:', err);
+      toast.error('❌ Unauthorized. Please log in again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Open confirm dialog before delete
+  const openConfirm = (id) => {
+    setEventToDelete(id);
+    setShowConfirm(true);
+  };
+
+  // Confirm delete handler
+  const handleDeleteConfirm = async () => {
+    try {
+      await axios.delete(`/events/${eventToDelete}`);
+      toast.success('✅ Event deleted successfully!');
+      setEvents(prev => prev.filter(event => event._id !== eventToDelete));
     } catch (err) {
       console.error(err);
-      alert('❌ Could not delete event.');
+      toast.error('❌ Could not delete event.');
+    } finally {
+      setShowConfirm(false);
+      setEventToDelete(null);
     }
   };
 
@@ -52,18 +71,23 @@ const ManageEvents = () => {
       const updated = res.data;
       setEvents(prev => prev.map(ev => (ev._id === updated._id ? updated : ev)));
       setShowModal(false);
-      alert('✅ Event updated successfully!');
+      toast.success('✅ Event updated successfully!');
     } catch (err) {
       console.error('Edit failed:', err);
-      alert('❌ Failed to update event.');
+      toast.error('❌ Failed to update event.');
     }
   };
 
   return (
     <div className="manage-events-container">
-      <h2>📅 My Events</h2>
+      <div className="event-header">
+        <h2 className='event-title'>📅 My Events</h2>
+        <button className="close-btn" onClick={() => navigate('/organizer/dashboard')}>❌</button>
+      </div>
 
-      {events.length === 0 ? (
+      {loading ? (
+        <p>Loading events...</p>
+      ) : events.length === 0 ? (
         <p>You haven't created any events yet.</p>
       ) : (
         <div className="events-list">
@@ -77,7 +101,7 @@ const ManageEvents = () => {
 
               <div className="event-actions">
                 <button onClick={() => handleEditClick(event)} className="edit-btn">Edit</button>
-                <button onClick={() => handleDelete(event._id)} className="delete-btn">Delete</button>
+                <button onClick={() => openConfirm(event._id)} className="delete-btn">Delete</button>
               </div>
             </div>
           ))}
@@ -112,8 +136,18 @@ const ManageEvents = () => {
           </div>
         </div>
       )}
+
+      {/* Use correct prop names: open and onClose */}
+      <ConfirmDialog
+        open={showConfirm}
+        message="Are you sure you want to delete this event?"
+        onConfirm={handleDeleteConfirm}
+        onClose={() => setShowConfirm(false)}
+      />
     </div>
   );
 };
 
 export default ManageEvents;
+
+

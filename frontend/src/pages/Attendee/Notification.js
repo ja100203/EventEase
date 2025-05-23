@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import '../../styles/Attendee.css';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/main.css'
+
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -21,6 +24,8 @@ const Notifications = () => {
     fetchNotifications();
   }, []);
 
+  const navigate = useNavigate();
+
   const markAsRead = async (id) => {
     try {
       await axios.put(`/notifications/${id}/read`);
@@ -38,7 +43,10 @@ const Notifications = () => {
 
   return (
     <div className="atendee-payment ">
+ <div className="event-header">
       <h3 className="notification-title">My Notifications</h3>
+        <button className="close-btn" onClick={() => navigate('/attendee/dashboard')}>❌</button>
+      </div>  
 
       {notifications.length === 0 ? (
         <p>No notifications available</p>

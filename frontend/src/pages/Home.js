@@ -8,9 +8,41 @@ import image4 from '../images/image4.jpg';
 import image3 from '../images/image3.jpg';
 import image2 from '../images/image2.jpg';
 import image1 from '../images/image1.jpg';
-
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+const handleGetStarted = () => {
+  try {
+    const token = localStorage.getItem('token')?.trim();
+    const role = localStorage.getItem('role')?.trim()?.toLowerCase();
+
+    if (!token || !role) {
+      navigate('/login');
+      return;
+    }
+
+    switch (role) {
+      case 'admin':
+        navigate('/admin');
+        break;
+      case 'organiser':
+      case 'organizer':
+        navigate('/organiser');
+        break;
+      case 'attendee':
+        navigate('/attendee');
+        break;
+      default:
+        navigate('/login');
+    }
+  } catch (error) {
+    console.error('Error in Get Started:', error);
+    navigate('/login');
+  }
+};
+
   const features = [
     {
       title: 'Easy Bookings',
@@ -49,7 +81,7 @@ const Home = () => {
           <div className="container" style={{ position: "relative", zIndex: 2 }}>
             <h1 className="hero-title">Plan. <span style={{ color: "#f43f5e" }}> Manage.</span> Celebrate.</h1>
             <p className="hero-tagline">Your all-in-one event management solution for private & public events.</p>
-            <a href="#" className="btn get-started-btn">Get Started</a>
+            <button className="btn get-started-btn" onClick={handleGetStarted}>Get Started</button>
           </div>
         </section>
 
@@ -70,7 +102,6 @@ const Home = () => {
                 </div>
               ))}
             </div>
-
           </div>
         </section>
       </div>

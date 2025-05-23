@@ -15,41 +15,43 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const { data } = await loginUser(formData);
-      console.log('Login response:', data);
+  e.preventDefault();
+  setLoading(true);
+  try {
+    const sanitizedData = {
+      email: formData.email.trim(),
+      password: formData.password.trim()
+    };
 
-      const { token, user } = data;
+    const { data } = await loginUser(sanitizedData);
+    console.log('Login response:', data);
 
-      localStorage.setItem('token', token);
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        })
-      );
+    const { token, user } = data;
 
-      // Call login context method
-      login({
-        token,
+    localStorage.setItem('token', token);
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
         name: user.name,
         email: user.email,
         role: user.role,
-        id: user._id || user.id,
-      });
+      })
+    );
 
-      // no navigation needed here, context will handle it
+    login({
+      token,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      id: user._id || user.id,
+    });
 
-    } catch (err) {
-      alert(err.response?.data?.message || 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    alert(err.response?.data?.message || 'Login failed');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="login-background">

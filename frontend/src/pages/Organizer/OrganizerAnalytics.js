@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import '../../styles/Organiser.css'; // External CSS
+import { useNavigate } from 'react-router-dom';
 
 const OrganizerAnalytics = () => {
   const [stats, setStats] = useState(null);
@@ -20,12 +21,17 @@ const OrganizerAnalytics = () => {
 
     fetchStats();
   }, []);
+const navigate = useNavigate();
 
   if (loading) return <div className="statLoading">Loading organizer stats...</div>;
 
   return (
     <div className="statContainer">
-      <h2 className="statHeader">📈 Organizer Dashboard</h2>
+      <div className="event-header">
+        <h2 className="statHeader">📈 Organizer Dashboard</h2>
+        <button className="close-btn" onClick={() => navigate('/organizer/dashboard')}>❌</button>
+      </div>
+
       <div className="statCardContainer">
         <StatCard title="Your Total Events" value={stats?.totalEvents} icon="event" />
         <StatCard title="Tickets Sold" value={stats?.totalTicketsSold} icon="ticket" />

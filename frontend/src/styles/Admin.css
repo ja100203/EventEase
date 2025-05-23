@@ -147,11 +147,12 @@
 
   /*events.css*/
   /* Container styling */
-.events-container {
+.admin-events-container {
     background-color: #0d0d0d;
     color: #fff;
     padding: 2rem;
     min-height: 100vh;
+    margin-top: 4rem;
   }
   
   /* Header */
@@ -659,5 +660,60 @@
   font-size: 1.3rem !important;
   color: #f43f5e !important;
   font-weight: 600 !important;
+}
+
+.custom-modal .modal-dialog {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+.custom-modal .modal-content {
+  background-color: #0d0d0d;
+  color: #ffffff;
+  border-radius: 12px;
+  border: none;
+}
+
+.custom-modal select.form-select:hover {
+  background-color: #f783ac; /* lighter pink on hover */
+  color: white;
+  cursor: pointer;
+}
+
+.custom-modal .modal-header,
+.custom-modal .modal-footer {
+  background-color: #0d0d0d;
+  border: none;
+}
+
+.custom-modal .form-control,
+.custom-modal .form-select {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #1f1f1f;
+}
+
+.custom-modal .form-control::placeholder {
+  color: #aaa;
+}
+
+.custom-modal .form-control:focus,
+.custom-modal .form-select:focus {
+  border-color: #f43f5e;
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-modal .btn-primary {
+  background-color: #f43f5e;
+  border-color: #f43f5e;
+}
+
+.custom-modal .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 

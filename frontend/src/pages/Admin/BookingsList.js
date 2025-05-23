@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
-import '../../styles/Attendee.css'; // Reusing the same styles
+import '../../styles/Attendee.css';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/main.css';
+import { toast } from 'react-toastify';
+import ConfirmDialog from '../../components/ConfirmDialog'; // ✅ custom dialog
 
 const BookingsList = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [bookingToCancel, setBookingToCancel] = useState(null);
+
+  const navigate = useNavigate();
 
   const fetchBookings = async () => {
     try {
@@ -21,22 +29,39 @@ const BookingsList = () => {
     fetchBookings();
   }, []);
 
-  const cancelBooking = async (id) => {
-    if (window.confirm('Cancel this booking?')) {
-      try {
-        await axios.delete(`/bookings/all/${id}`);
-        fetchBookings();
-      } catch (err) {
-        console.error('Error canceling booking:', err);
-      }
+  const handleCancelRequest = (id) => {
+    setBookingToCancel(id);
+    setShowConfirm(true);
+  };
+
+  const handleConfirmCancel = async () => {
+    if (!bookingToCancel) {
+      toast.error('Invalid booking ID');
+      return;
+    }
+
+    try {
+      await axios.delete(`/bookings/all/${bookingToCancel}`);
+      toast.success('Booking deleted successfully!');
+      fetchBookings();
+    } catch (err) {
+      console.error('Error canceling booking:', err.response?.data || err.message);
+      toast.error('Failed to delete booking.');
+    } finally {
+      setShowConfirm(false);
+      setBookingToCancel(null);
     }
   };
+
 
   if (loading) return <p>Loading all bookings...</p>;
 
   return (
     <div className="atendee-booking">
-      <h3 className="my-bookings-title">All Bookings (Admin View)</h3>
+      <div className="event-header">
+        <h3 className="my-bookings-title">All Bookings (Admin View)</h3>
+        <button className="close-btn" onClick={() => navigate('/admin/dashboard')}>❌</button>
+      </div>
 
       {bookings.length === 0 ? (
         <p>No bookings found.</p>
@@ -63,11 +88,7 @@ const BookingsList = () => {
                   <td>{b.numberOfTickets}</td>
                   <td>₹{b.totalPrice}</td>
                   <td>
-                    <span
-                      className={`status-badge ${
-                        b.paymentStatus === 'paid' ? 'status-paid' : 'status-pending'
-                      }`}
-                    >
+                    <span className={`status-badge ${b.paymentStatus === 'paid' ? 'status-paid' : 'status-pending'}`}>
                       {b.paymentStatus}
                     </span>
                   </td>
@@ -75,7 +96,7 @@ const BookingsList = () => {
                     <div className="d-flex justify-content-center flex-wrap">
                       <button
                         className="action-btn cancel"
-                        onClick={() => cancelBooking(b._id)}
+                        onClick={() => handleCancelRequest(b._id)}
                       >
                         Cancel
                       </button>
@@ -87,6 +108,18 @@ const BookingsList = () => {
           </table>
         </div>
       )}
+
+      {/* ✅ Custom Confirm Dialog */}
+      <ConfirmDialog
+        open={showConfirm}
+        message="Are you sure you want to cancel this booking?"
+        onClose={() => {
+          setShowConfirm(false);
+          setBookingToCancel(null);
+        }}
+        onConfirm={handleConfirmCancel}
+      />
+
     </div>
   );
 };

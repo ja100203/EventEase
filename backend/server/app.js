@@ -22,16 +22,18 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS: ' + origin));
-    }
-  },
+ origin: function (origin, callback) {
+  console.log('CORS Origin Check:', origin);
+  if (!origin || allowedOrigins.includes(origin)) {
+    callback(null, true);
+  } else {
+    callback(new Error('Not allowed by CORS: ' + origin));
+  }
+},
   credentials: true
 }));
 
+app.use(express.json()); // <== ✅ Add this
 
 const server = http.createServer(app); // ✅ Create HTTP server
 const io = new Server(server, {

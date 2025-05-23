@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Attendee.css';
+import '../../styles/main.css';
+import ConfirmDialog from '../../components/ConfirmDialog';
+import {  toast } from 'react-toastify';
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [confirmDialog, setConfirmDialog] = useState({ open: false, bookingId: null });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,12 +17,13 @@ const MyBookings = () => {
       try {
         const res = await axios.get('/bookings', {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         });
-                setBookings(res.data);
+        setBookings(res.data);
       } catch (err) {
         console.error('Error fetching bookings:', err);
+        toast.error("Failed to load bookings.");
         setBookings([]);
       } finally {
         setLoading(false);
@@ -28,22 +33,28 @@ const MyBookings = () => {
     fetchBookings();
   }, []);
 
-  const handleCancel = async (id) => {
-    if (!window.confirm('Are you sure you want to cancel this booking?')) return;
-    try {
-      await axios.delete(`/bookings/${id}`);
-      setBookings(prev => prev.filter(b => b._id !== id));
-      alert('Booking cancelled');
-    } catch (err) {
-      console.error(err);
-      alert('Failed to cancel booking');
-    }
+  const confirmCancel = (id) => {
+    setConfirmDialog({ open: true, bookingId: id });
   };
+
+const handleCancel = async () => {
+  console.log("handleCancel called for bookingId:", confirmDialog.bookingId);
+  setConfirmDialog({ open: false, bookingId: null });
+  try {
+    await axios.delete(`/bookings/${confirmDialog.bookingId}`);
+    setBookings(prev => prev.filter(b => b._id !== confirmDialog.bookingId));
+    console.log("Booking cancelled successfully, showing toast");
+    toast.success('Booking cancelled successfully');
+  } catch (err) {
+    console.error(err);
+    toast.error('Failed to cancel booking');
+  }
+};
 
   const handlePayment = async (booking) => {
     try {
       if (!booking || !booking._id || !booking.totalPrice) {
-        alert("Booking data missing. Cannot proceed with payment.");
+        toast.error("Missing booking data. Cannot proceed with payment.");
         return;
       }
 
@@ -85,7 +96,7 @@ const MyBookings = () => {
             }
           );
 
-          alert("🎉 Payment Successful!");
+          toast.success("🎉 Payment Successful!");
           navigate("/dashboard");
         },
         prefill: {
@@ -102,77 +113,76 @@ const MyBookings = () => {
       rzp.open();
     } catch (error) {
       console.error("Error initiating payment:", error.response?.data || error.message);
-      alert("Payment failed. Try again.");
+      toast.error("Payment failed. Try again.");
     }
   };
-
-
-
 
   if (loading) return <p>Loading your bookings...</p>;
 
   return (
-<div className="atendee-booking">
-<h3 className="my-bookings-title">My Bookings</h3>
+    <div className="atendee-booking">
+      <div className="event-header">
+        <h2 className='event-title'>My Bookings</h2>
+        <button className="close-btn" onClick={() => navigate('/attendee/dashboard')}>❌</button>
+      </div>
 
-  {bookings.length === 0 ? (
-    <p>No bookings yet.</p>
-  ) : (
-    <div className="table-container">
-      <table className="styled-table">
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Tickets</th>
-            <th>Total Price</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b._id}>
-              <td>{b.event?.title || 'N/A'}</td>
-              <td>{new Date(b.event?.date).toLocaleDateString()}</td>
-              <td>{b.event?.location}</td>
-              <td>{b.numberOfTickets}</td>
-              <td>₹{b.totalPrice}</td>
-              <td>
-                <span
-                  className={`status-badge ${
-                    b.paymentStatus === 'paid' ? 'status-paid' : 'status-pending'
-                  }`}
-                >
-                  {b.paymentStatus}
-                </span>
-              </td>
-              <td>
-                <div className="d-flex justify-content-center flex-wrap">
-                  <button
-                    className="action-btn cancel"
-                    onClick={() => handleCancel(b._id)}
-                  >
-                    Cancel
-                  </button>
-                  {b.paymentStatus === 'pending' && (
-                    <button
-                      className="action-btn pay"
-                      onClick={() => handlePayment(b)}
+      {bookings.length === 0 ? (
+        <p>No bookings yet.</p>
+      ) : (
+        <div className="table-container">
+          <table className="styled-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Tickets</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((b) => (
+                <tr key={b._id}>
+                  <td>{b.event?.title || 'N/A'}</td>
+                  <td>{new Date(b.event?.date).toLocaleDateString()}</td>
+                  <td>{b.event?.location}</td>
+                  <td>{b.numberOfTickets}</td>
+                  <td>₹{b.totalPrice}</td>
+                  <td>
+                    <span
+                      className={`status-badge ${b.paymentStatus === 'paid' ? 'status-paid' : 'status-pending'}`}
                     >
-                      Pay Now
-                    </button>
-                  )}
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                      {b.paymentStatus}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="d-flex justify-content-center flex-wrap">
+                      <button className="action-btn cancel" onClick={() => confirmCancel(b._id)}>
+                        Cancel
+                      </button>
+                      {b.paymentStatus === 'pending' && (
+                        <button className="action-btn pay" onClick={() => handlePayment(b)}>
+                          Pay Now
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <ConfirmDialog
+        open={confirmDialog.open}
+        message="Are you sure you want to cancel this booking?"
+        onClose={() => setConfirmDialog({ open: false, bookingId: null })}
+        onConfirm={handleCancel}
+      />
     </div>
-  )}
-</div>
   );
 };
 

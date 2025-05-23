@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import "../../styles/Admin.css"; // This should now contain the organiser-stats style
+import { useNavigate } from 'react-router-dom';
+import '../../styles/main.css'
 
 const AnalyticsDashboard = () => {
   const [stats, setStats] = useState(null);
@@ -21,6 +23,9 @@ const AnalyticsDashboard = () => {
     fetchStats();
   }, []);
 
+  const navigate = useNavigate();
+
+
   if (loading) {
     return (
       <div className="statContainer">
@@ -31,7 +36,11 @@ const AnalyticsDashboard = () => {
 
   return (
     <div className="statContainer">
-      <h1 className="statHeader">Admin Analytics</h1>
+      <div className="event-header">
+        <h1 className="statHeader">Admin Analytics</h1>
+        <button className="close-btn" onClick={() => navigate('/admin/dashboard')}>❌</button>
+      </div>
+
       <div className="statCardContainer">
         <StatCard
           icon="event"
@@ -51,11 +60,18 @@ const AnalyticsDashboard = () => {
           value={`₹${stats?.totalRevenue}`}
           type="revenue"
         />
-        {stats?.mostPopularEvent && (
+        {stats?.mostPopularEvent ? (
           <StatCard
             icon="star"
             title="Most Popular Event"
             value={`${stats.mostPopularEvent.title} (${stats.mostPopularEvent.ticketsSold} tickets)`}
+            type="star"
+          />
+        ) : (
+          <StatCard
+            icon="star"
+            title="Most Popular Event"
+            value="No events"
             type="star"
           />
         )}

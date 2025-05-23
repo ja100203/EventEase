@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import '../../styles/Attendee.css';
+import { toast } from 'react-toastify';
 
 const Booking= ({ eventId, onClose }) => {
   const [event, setEvent] = useState(null);
@@ -30,17 +31,17 @@ const Booking= ({ eventId, onClose }) => {
         numberOfTickets,
       });
       setBooking(res.data.booking);
-      alert('Booking successful!');
+      toast.success('Booking successful!');
     } catch (err) {
       console.error(err);
-      alert('Failed to book tickets');
+      toast.error('Failed to book tickets');
     }
   };
 
   const handlePayment = async () => {
     try {
       if (!booking || !booking._id || !booking.totalPrice) {
-        alert("Booking data missing.");
+        toast.warn("Booking data missing.");
         return;
       }
 
@@ -81,7 +82,7 @@ const Booking= ({ eventId, onClose }) => {
               },
             }
           );
-          alert("🎉 Payment Successful!");
+          toast.success("🎉 Payment Successful!");
           onClose(); // Close modal
         },
         prefill: {
@@ -98,7 +99,7 @@ const Booking= ({ eventId, onClose }) => {
       rzp.open();
     } catch (error) {
       console.error("Error initiating payment:", error);
-      alert("Payment failed. Try again.");
+      toast.error("Payment failed. Try again.");
     }
   };
 

@@ -58,10 +58,10 @@
   
 
 /* main.css */
-body {
+body,html {
     font-family: 'Poppins', sans-serif;
     background-color: #202328; 
-    overflow-y: auto;     /* Enable vertical scrolling only when needed */
+    overflow-y: auto !important;     /* Enable vertical scrolling only when needed */
     overflow-x: hidden;   /* Disable horizontal scroll */
     scroll-behavior: smooth;
     scrollbar-width: none; /* Firefox */
@@ -267,7 +267,37 @@ body {
     }
   }
     
+.event-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding:0 40px;
+  margin-bottom: 1rem; /* ↓ Add or reduce this value */
+}
+
+.event-title {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #f43f5e;
+}
+
+.close-btn {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
 
 
+.Toastify__toast-container {
+  z-index: 99999 !important;
+}
 
  

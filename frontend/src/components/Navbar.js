@@ -8,6 +8,7 @@ const Navbar = () => {
   const { auth, logout } = useAuth();
   const isLoggedIn = !!auth;
   const navigate = useNavigate();
+  console.log("Auth:", auth);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -45,7 +46,20 @@ const Navbar = () => {
             ) : (
               <>
                 <li className="nav-item">
-                  <span className="nav-link">Welcome, {auth?.user?.role}</span>
+                  <Link
+                    className="nav-link"
+                    to={
+                      auth?.role === 'admin'
+                        ? '/admin/dashboard'
+                        : auth?.role === 'organizer'
+                          ? '/organizer/dashboard'
+                          : auth?.role === 'attendee'
+                            ? '/attendee/dashboard'
+                            : '/'
+                    }
+                  >
+                    Welcome, {auth?.role}
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <button className="nav-link btn btn-link text-white" onClick={handleLogout}>

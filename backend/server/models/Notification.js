@@ -18,7 +18,7 @@ const notificationSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['event_created', 'event_updated', 'booking_created'], // ← Add 'booking_created'
+  enum: ['event_created', 'event_updated', 'booking_created', 'booking_cancelled'], // added 'booking_cancelled'
       default: "general",
     },
     read: {

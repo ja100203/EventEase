@@ -2,17 +2,18 @@ const Event = require('../models/Event');
 
 exports.createEvent = async (req, res) => {
     try {
-        const { title, description, date, location, ticketsAvailable, price } = req.body;
+const { title, description, date, location, ticketsAvailable, price, category } = req.body;
 
-        const event = new Event({
-            title,
-            description,
-            date,
-            location,
-            ticketsAvailable,
-            price,
-            organizer: req.user.id // Organizer ID from JWT
-        });
+const event = new Event({
+  title,
+  description,
+  date,
+  location,
+  ticketsAvailable,
+  price,
+  category, // ✅ added
+  organizer: req.user.id,
+});
 
         await event.save();
         res.status(201).json(event);
@@ -67,13 +68,14 @@ exports. updateEvent = async (req, res) => {
         return res.status(403).json({ message: 'Not authorized to update this event' });
       }
   
-      const updatedFields = {
-        title: req.body.title || event.title,
-        date: req.body.date || event.date,
-        location: req.body.location || event.location,
-        ticketsAvailable: req.body.ticketsAvailable || event.ticketsAvailable,
-        price: req.body.price || event.price,
-      };
+const updatedFields = {
+  title: req.body.title || event.title,
+  date: req.body.date || event.date,
+  location: req.body.location || event.location,
+  ticketsAvailable: req.body.ticketsAvailable || event.ticketsAvailable,
+  price: req.body.price || event.price,
+  category: req.body.category || event.category, // ✅ added
+};
   
       const updatedEvent = await Event.findByIdAndUpdate(eventId, updatedFields, { new: true });
   

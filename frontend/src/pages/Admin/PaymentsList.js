@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import '../../styles/Attendee.css'; // Reusing styles
+import '../../styles/main.css'
+import { useNavigate } from 'react-router-dom';
 
 const PaymentsList = () => {
   const [payments, setPayments] = useState([]);
@@ -25,13 +27,18 @@ const PaymentsList = () => {
     fetchPayments();
   }, []);
 
+      const navigate = useNavigate();
+  
+
   if (loading) return <p>Loading payments...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="atendee-booking">
+  <div className="event-header">
       <h3 className="my-bookings-title">All Payments (Admin View)</h3>
-
+        <button className="close-btn" onClick={() => navigate('/admin/dashboard')}>❌</button>
+      </div>
       {payments.length === 0 ? (
         <p>No payments found.</p>
       ) : (

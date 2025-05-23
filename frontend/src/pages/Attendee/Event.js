@@ -1,10 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import { FaSearch, FaFilter, FaCalendarAlt } from 'react-icons/fa';
-import BookingModal from '../Attendee/Booking'; // 🆕 import your modal component
+import BookingModal from '../Attendee/Booking';
 import '../../styles/Attendee.css';
+import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/main.css';
+import { toast } from 'react-toastify';
+import ConfirmDialog from '../../components/ConfirmDialog'; // Update the path as needed
 
 const Events = () => {
+  const options = [
+    { value: '', label: 'All Categories' },
+    { value: 'General', label: 'General' },
+    { value: 'Fun', label: 'Fun' },
+    { value: 'Tech', label: 'Tech' },
+  ];
+
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      backgroundColor: '#1f1f1f',
+      borderColor: '#1f1f1f',
+      color: '#ffff',
+    }),
+    option: (base, { isFocused }) => ({
+      ...base,
+      backgroundColor: isFocused ? '#f43f5e' : '#ffe6f0',
+      color: isFocused ? '#ffff' : '#1c1e22',
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: '#ffff',
+    }),
+  };
+
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,8 +43,14 @@ const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
 
-  const [selectedEventId, setSelectedEventId] = useState(null); // 🆕
-  const [showModal, setShowModal] = useState(false); // 🆕
+  const [selectedEventId, setSelectedEventId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState('');
+  const [confirmAction, setConfirmAction] = useState(() => () => {});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -58,17 +94,30 @@ const Events = () => {
     setFilteredEvents(filtered);
   }, [searchTerm, selectedCategory, selectedDate, events]);
 
+  const showConfirmation = (message, onConfirmAction) => {
+    setConfirmMessage(message);
+    setConfirmAction(() => onConfirmAction);
+    setConfirmOpen(true);
+  };
+
   const handleViewDetails = (eventId) => {
-    setSelectedEventId(eventId);
-    setShowModal(true);
+    showConfirmation('Do you want to book this event?', () => {
+      setSelectedEventId(eventId);
+      setShowModal(true);
+      toast.success('Proceeding to booking...');
+    });
   };
 
   if (loading) return <div className="loading">Loading events...</div>;
 
   return (
     <div className="events-container">
-      <header className="events-header">
-        <h1>Discover Events</h1>
+      <div className="event-header">
+        <h2 className='event-title'>📅 Discover Events</h2>
+        <button className="close-btn" onClick={() => navigate('/attendee/dashboard')}>❌</button>
+      </div>
+
+      <header className="search-header">
         <div className="search-filter-container">
           <div className="search-box">
             <FaSearch className="icon" />
@@ -82,15 +131,12 @@ const Events = () => {
 
           <div className="filter-btn category-filter">
             <FaFilter className="icon" />
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option value="">All Categories</option>
-              <option value="General">General</option>
-              <option value="Fun">Fun</option>
-              <option value="Tech">Tech</option>
-            </select>
+            <Select
+              options={options}
+              styles={customStyles}
+              onChange={(selected) => setSelectedCategory(selected.value)}
+              defaultValue={options[0]}
+            />
           </div>
 
           <div className="filter-btn date-filter">
@@ -127,16 +173,26 @@ const Events = () => {
         )}
       </div>
 
-      {/* 🧾 Booking Modal */}
       {showModal && selectedEventId && (
         <BookingModal
           eventId={selectedEventId}
           onClose={() => {
             setShowModal(false);
             setSelectedEventId(null);
+            toast.info('Booking modal closed');
           }}
         />
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        message={confirmMessage}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          confirmAction();
+          setConfirmOpen(false);
+        }}
+      />
     </div>
   );
 };
