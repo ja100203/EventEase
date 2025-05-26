@@ -22,10 +22,10 @@ console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? 'Loaded' : 'Missing');
       subject: '🎉 Welcome to Event Manager!',
       html: `
         <h2>Hi ${name},</h2>
-        <p>Welcome to <strong>Event Manager</strong>! We're thrilled to have you on board.</p>
+        <p>Welcome to <strong>EventEase</strong>! We're thrilled to have you on board.</p>
         <p>You can now log in and start exploring exciting events!</p>
         <br>
-        <p>Regards,<br/>Event Manager Team</p>
+        <p>Regards,<br/>EventEase Team</p>
       `
     };
 

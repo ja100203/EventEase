@@ -154,7 +154,7 @@ const EventsList = () => {
   return (
     <div className="admin-events-container">
       <div className="event-header">
-        <h2 className="event-title">My Events</h2>
+        <h2 className="event-title">All Events</h2>
         <button className="close-btn" onClick={() => navigate('/admin/dashboard')}>❌</button>
       </div>
 

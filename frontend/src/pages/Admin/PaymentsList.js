@@ -36,11 +36,11 @@ const PaymentsList = () => {
   return (
     <div className="atendee-booking">
   <div className="event-header">
-      <h3 className="my-bookings-title">All Payments (Admin View)</h3>
+      <h3 className="my-bookings-title">All Payments </h3>
         <button className="close-btn" onClick={() => navigate('/admin/dashboard')}>❌</button>
       </div>
       {payments.length === 0 ? (
-        <p>No payments found.</p>
+        <p className='no-events'>No payments found.</p>
       ) : (
         <div className="table-container">
           <table className="styled-table">

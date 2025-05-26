@@ -7,7 +7,6 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/main.css';
 import { toast } from 'react-toastify';
-import ConfirmDialog from '../../components/ConfirmDialog'; // Update the path as needed
 
 const Events = () => {
   const options = [
@@ -46,10 +45,6 @@ const Events = () => {
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [confirmMessage, setConfirmMessage] = useState('');
-  const [confirmAction, setConfirmAction] = useState(() => () => {});
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,6 +56,7 @@ const Events = () => {
         setFilteredEvents(data);
       } catch (error) {
         console.error("Failed to fetch events", error);
+                toast.error('Failed to fetch events');
       } finally {
         setLoading(false);
       }
@@ -94,18 +90,17 @@ const Events = () => {
     setFilteredEvents(filtered);
   }, [searchTerm, selectedCategory, selectedDate, events]);
 
-  const showConfirmation = (message, onConfirmAction) => {
-    setConfirmMessage(message);
-    setConfirmAction(() => onConfirmAction);
-    setConfirmOpen(true);
-  };
+
 
   const handleViewDetails = (eventId) => {
-    showConfirmation('Do you want to book this event?', () => {
-      setSelectedEventId(eventId);
-      setShowModal(true);
-      toast.success('Proceeding to booking...');
-    });
+    setSelectedEventId(eventId);
+    setShowModal(true);
+    toast.success('Proceeding to booking...');
+  };
+
+    const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedEventId(null);
   };
 
   if (loading) return <div className="loading">Loading events...</div>;
@@ -173,26 +168,13 @@ const Events = () => {
         )}
       </div>
 
-      {showModal && selectedEventId && (
+       {showModal && (
         <BookingModal
           eventId={selectedEventId}
-          onClose={() => {
-            setShowModal(false);
-            setSelectedEventId(null);
-            toast.info('Booking modal closed');
-          }}
+          onClose={handleCloseModal}
         />
       )}
 
-      <ConfirmDialog
-        open={confirmOpen}
-        message={confirmMessage}
-        onClose={() => setConfirmOpen(false)}
-        onConfirm={() => {
-          confirmAction();
-          setConfirmOpen(false);
-        }}
-      />
     </div>
   );
 };

@@ -35,23 +35,26 @@ const BookingsList = () => {
   };
 
   const handleConfirmCancel = async () => {
-    if (!bookingToCancel) {
-      toast.error('Invalid booking ID');
-      return;
-    }
+  if (!bookingToCancel) {
+    toast.error('Invalid booking ID');
+    return;
+  }
 
-    try {
-      await axios.delete(`/bookings/all/${bookingToCancel}`);
-      toast.success('Booking deleted successfully!');
-      fetchBookings();
-    } catch (err) {
-      console.error('Error canceling booking:', err.response?.data || err.message);
-      toast.error('Failed to delete booking.');
-    } finally {
-      setShowConfirm(false);
-      setBookingToCancel(null);
-    }
-  };
+  try {
+    await axios.delete(`/bookings/all/${bookingToCancel}`);
+    toast.success('Booking deleted successfully!');
+
+    // ⏩ Remove the deleted booking from the local state immediately
+    setBookings(prev => prev.filter(b => b._id !== bookingToCancel));
+  } catch (err) {
+    console.error('Error canceling booking:', err.response?.data || err.message);
+    toast.error('Failed to delete booking.');
+  } finally {
+    setShowConfirm(false);
+    setBookingToCancel(null);
+  }
+};
+
 
 
   if (loading) return <p>Loading all bookings...</p>;
@@ -59,12 +62,12 @@ const BookingsList = () => {
   return (
     <div className="atendee-booking">
       <div className="event-header">
-        <h3 className="my-bookings-title">All Bookings (Admin View)</h3>
+        <h3 className="my-bookings-title">All Bookings</h3>
         <button className="close-btn" onClick={() => navigate('/admin/dashboard')}>❌</button>
       </div>
 
       {bookings.length === 0 ? (
-        <p>No bookings found.</p>
+        <p className='no-events'>No bookings found.</p>
       ) : (
         <div className="table-container">
           <table className="styled-table">

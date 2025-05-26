@@ -4,6 +4,8 @@ import { signupUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import '../styles/signup.css';
 import signupVector from '../images/signup.jpg';
+import { toast } from 'react-toastify';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const Signup = () => {
   const { login } = useAuth();
@@ -17,7 +19,9 @@ const Signup = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState('');
+  const [confirmAction, setConfirmAction] = useState(() => () => {});
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -26,9 +30,14 @@ const Signup = () => {
     }));
   };
 
+  const showConfirmation = (message, onConfirmAction) => {
+    setConfirmMessage(message);
+    setConfirmAction(() => onConfirmAction);
+    setConfirmOpen(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
     setLoading(true);
 
     try {
@@ -45,17 +54,18 @@ const Signup = () => {
         id: data.id,
       });
 
-      setMessage(`🎉 Welcome, ${data.name}! You’ve signed up successfully.`);
-      
-      // Redirect based on role
-      if (data.role === 'admin') navigate('/admin/dashboard');
-      else if (data.role === 'organizer') navigate('/organizer/dashboard');
-      else if (data.role === 'attendee') navigate('/attendee/dashboard');
-      else navigate('/home');
+      toast.success(`🎉 Welcome, ${data.name}! You’ve signed up successfully.`);
+
+      showConfirmation(`Hi ${data.name}, want to go to your dashboard?`, () => {
+        if (data.role === 'admin') navigate('/admin/dashboard');
+        else if (data.role === 'organizer') navigate('/organizer/dashboard');
+        else if (data.role === 'attendee') navigate('/attendee/dashboard');
+        else navigate('/home');
+      });
 
     } catch (err) {
       console.error('Signup error:', err.response || err);
-      alert(err.response?.data?.message || 'Signup failed');
+      toast.error(err.response?.data?.message || 'Signup failed');
     } finally {
       setLoading(false);
     }
@@ -70,7 +80,6 @@ const Signup = () => {
 
         <div className="signup-card">
           <h2>Sign Up</h2>
-          {message && <p className="success-message">{message}</p>}
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -113,6 +122,16 @@ const Signup = () => {
           </form>
         </div>
       </div>
+
+      <ConfirmDialog
+        open={confirmOpen}
+        message={confirmMessage}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          confirmAction();
+          setConfirmOpen(false);
+        }}
+      />
     </div>
   );
 };

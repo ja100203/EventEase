@@ -37,7 +37,7 @@ const OrganizerEventBookings = () => {
       </div>
 
       {organizedEvents.length === 0 ? (
-        <p className="organizer-empty">You haven't created any events yet.</p>
+        <p className="no-events">You haven't created any events yet.</p>
       ) : (
         organizedEvents.map(({ event, bookings }) => (
           <div key={event._id} className="event-block">

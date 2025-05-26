@@ -127,7 +127,7 @@ const handleCancel = async () => {
       </div>
 
       {bookings.length === 0 ? (
-        <p>No bookings yet.</p>
+        <p className='no-events'>No bookings yet !!.</p>
       ) : (
         <div className="table-container">
           <table className="styled-table">

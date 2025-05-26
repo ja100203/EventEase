@@ -88,7 +88,7 @@ const ManageEvents = () => {
       {loading ? (
         <p>Loading events...</p>
       ) : events.length === 0 ? (
-        <p>You haven't created any events yet.</p>
+        <p className='no-events'>You haven't created any events yet.</p>
       ) : (
         <div className="events-list">
           {events.map(event => (

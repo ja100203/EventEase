@@ -342,8 +342,7 @@
   }
   
   /* Empty or loading states */
-  .loading,
-  .no-events {
+  .loading {
     text-align: center;
     margin-top: 3rem;
     color: white;

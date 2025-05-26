@@ -49,7 +49,7 @@ const Notifications = () => {
       </div>  
 
       {notifications.length === 0 ? (
-        <p>No notifications available</p>
+        <p className='no-events'>No notifications available</p>
       ) : (
         notifications.map((notification) => (
           <div
