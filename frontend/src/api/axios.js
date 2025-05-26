@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5600/api',
+    withCredentials: true // ✅ crucial for cookies, session
 });
 
 instance.interceptors.request.use((config) => {
